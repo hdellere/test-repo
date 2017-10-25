@@ -1,55 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  Header,
-  Card,
-  CardSection,
-  Button
-} from './components/common';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import firebase from 'firebase';
+import { View } from 'react-native';
+import { Header } from './components/common';
+import LoginForm from './components/LoginForm';
 
 export default class App extends Component<{}> {
+  componentWillMount() {
+    firebase.initializeApp({
+    apiKey: 'AIzaSyCEox2odJFsTSIt-8VcsgEL1xLnTmgWsaQ',
+    authDomain: 'auth-e6dcc.firebaseapp.com',
+    databaseURL: 'https://auth-e6dcc.firebaseio.com',
+    projectId: 'auth-e6dcc',
+    storageBucket: 'auth-e6dcc.appspot.com',
+    messagingSenderId: '674857075821'
+    });
+  }
+
   render() {
     return (
       <View>
         <Header headerText='Authentication App' />
+        <LoginForm />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2abfff',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
