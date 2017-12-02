@@ -17,8 +17,12 @@ before((done) => {
 //hook, executed before any test waits until done to avoid
 //issues from asynchronous tasks
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    //ready to run the next test!
-    done();
+  const { users, comments, blogposts } = mongoose.connection.collections;
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done();
+      });
+    });
   });
 });
