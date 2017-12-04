@@ -23,6 +23,14 @@ UserSchema.virtual('postCount').get(function() {
   return this.posts.length;
 });
 
+//middleware
+UserSchema.pre('remove', function (next) {
+  //this=== joe here so no need for fat arrow function
+  const BlogPost =  mongoose.model('blogPost');
+  BlogPost.remove({ _id: { $in: this.blogPosts } })
+    .then(() => next());
+});
+
 const User = mongoose.model('user', UserSchema); //makes collection called user
 
 module.exports = User; //gives access to user model by requiring in other files
