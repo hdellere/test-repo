@@ -43,6 +43,12 @@ export default class Deck extends Component {
     this.state = { panResponder, position, index: 0, position2 };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.setState({ index: 0 });
+    }
+  }
+
   forceSwipe(direction) {
     const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
 
